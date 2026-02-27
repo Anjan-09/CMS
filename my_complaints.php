@@ -66,7 +66,7 @@ ob_start();
       <tr class="row-<?=$t['priority']?>">
         <td><span class="fw-bold text-accent"><?=clean($t['ticket_no'])?></span></td>
         <td class="text-sm"><?=clean($t['bank_name'])?></td>
-        <td class="td-wrap"><?=clean($t['subject'])?></td>
+        <td class="td-wrap"><?=decode_clean($t['subject'])?></td>
         <td><?=priority_badge($t['priority'])?></td>
         <td><?=status_badge($t['status'])?></td>
         <td><?=time_left_html($t['sla_deadline'],$t['status'])?></td>

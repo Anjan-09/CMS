@@ -224,7 +224,7 @@ ob_start();
             <td><div><?=clean($t['cust_name']??'—')?></div><div class="text-xs text-muted"><?=clean($t['cust_phone']??'')?></div></td>
           <?php endif; ?>
           <td class="text-sm"><?=clean($t['bank_name']??'—')?></td>
-          <td class="td-wrap"><?=clean($t['subject'])?></td>
+          <td class="td-wrap"><?=decode_clean($t['subject'])?></td>
           <td><?=priority_badge($t['priority'])?></td>
           <td><?=status_badge($t['status'])?></td>
           <td><?=time_left_html($t['sla_deadline'],$t['status'])?></td>

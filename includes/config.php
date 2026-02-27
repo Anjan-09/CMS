@@ -55,8 +55,15 @@ function require_role(array $roles) {
 }
 
 // ── Sanitize input ─────────────────────────────────────────
+
+// Use this to sanitize input before saving to DB or displaying in HTML attributes
 function clean(string $v): string {
     return htmlspecialchars(strip_tags(trim($v)), ENT_QUOTES, 'UTF-8');
+}
+
+// Use this to decode for display in HTML body (not in attributes)
+function decode_clean(string $v): string {
+    return htmlspecialchars_decode($v, ENT_QUOTES);
 }
 
 // ── Flash messages ─────────────────────────────────────────

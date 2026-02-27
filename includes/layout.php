@@ -21,6 +21,10 @@ $css_path = $is_in_subdir ? '../assets/css/style.css' : 'assets/css/style.css';
 <style>
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
+:root {
+  --accent: <?= $accent ?>;
+  --primary: <?= $primary ?>;
+}
 </style>
 </head>
 <body>

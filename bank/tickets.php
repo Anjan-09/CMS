@@ -75,7 +75,7 @@ ob_start();
           <div class="fw-bold text-sm"><?=clean($t['cust_name'])?></div>
           <div class="text-xs text-muted"><?=clean($t['cust_phone'])?></div>
         </td>
-        <td class="td-wrap"><?=clean($t['subject'])?></td>
+        <td class="td-wrap"><?=decode_clean($t['subject'])?></td>
         <td><?=priority_badge($t['priority'])?></td>
         <td><?=status_badge($t['status'])?></td>
         <?php if($role==='bank_admin'): ?>

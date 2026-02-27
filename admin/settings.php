@@ -100,6 +100,14 @@ ob_start();
     </div>
 
     <button class="btn btn-primary" type="submit">Save Settings</button>
+    <div class="form-group mt-16">
+      <label class="form-label">Send Test Email</label>
+      <div style="display:flex;gap:10px">
+        <input class="form-control" type="email" name="test_email" placeholder="Enter your email">
+        <button class="btn btn-info" name="test_email_btn" value="1" type="submit">Send Test</button>
+      </div>
+      <small class="text-muted">Use your email to check if SMTP is working.</small>
+    </div>
   </form>
 </div>
 <?php
@@ -107,3 +115,20 @@ $body_html=ob_get_clean();
 require '../includes/layout.php';
 echo $body_html;
 echo '</body></html>';
+
+if(isset($_POST['test_email'])){
+    $test_email = trim($_POST['test_email'] ?? '');
+    if(filter_var($test_email, FILTER_VALIDATE_EMAIL)){
+        require '../includes/mailer.php';
+        $mailer = new Mailer($pdo);
+        $result = $mailer->send($test_email, 'Admin Test', 'Test Email from CMS', '<p>This is a test email from Complaint Management System.</p>');
+        if($result){
+            flash('success','Test email sent successfully to '.$test_email);
+        }else{
+            flash('danger','Test email failed: '.$mailer->getLastError());
+        }
+    }else{
+        flash('danger','Invalid test email address.');
+    }
+    header('Location:settings.php');exit;
+}

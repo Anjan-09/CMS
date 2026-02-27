@@ -92,11 +92,11 @@ ob_start();
         </div>
         <div style="margin-bottom:18px">
           <div class="text-xs text-muted" style="text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px">Subject</div>
-          <div class="fw-bold"><?=clean($t['subject'])?></div>
+          <div class="fw-bold"><?=decode_clean($t['subject'])?></div>
         </div>
         <div style="margin-bottom:18px">
           <div class="text-xs text-muted" style="text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px">Description</div>
-          <div style="line-height:1.7;font-size:14px"><?=nl2br(clean($t['description']))?></div>
+          <div style="line-height:1.7;font-size:14px"><?=nl2br(decode_clean($t['description']))?></div>
         </div>
 
         <div class="grid-2" style="margin-bottom:18px">
@@ -180,7 +180,7 @@ ob_start();
           <?php foreach($logs as $l): ?>
           <div class="tl-item">
             <div class="tl-time"><?=date('M j, Y g:i A',strtotime($l['created_at']))?></div>
-            <div class="tl-action"><?=clean($l['note'])?></div>
+            <div class="tl-action"><?=decode_clean($l['note'])?></div>
             <div class="text-xs text-muted">by <?=clean($l['full_name']??'System')?></div>
             <?php if($l['old_status']&&$l['new_status']): ?>
               <div style="margin-top:5px;display:flex;align-items:center;gap:6px">
