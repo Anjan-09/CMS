@@ -32,48 +32,60 @@ if (isset($_SESSION['last_active']) && (time() - $_SESSION['last_active'] > 3600
 if (isset($_SESSION['user_id'])) $_SESSION['last_active'] = time();
 
 // ── CSRF helpers ───────────────────────────────────────────
+if (!function_exists('csrf_token')) {
 function csrf_token() {
     if (empty($_SESSION['csrf'])) $_SESSION['csrf'] = bin2hex(random_bytes(32));
     return $_SESSION['csrf'];
 }
+}
+if (!function_exists('csrf_verify')) {
 function csrf_verify() {
     if (!isset($_POST['csrf'], $_SESSION['csrf']) || !hash_equals($_SESSION['csrf'], $_POST['csrf'])) {
         die('Invalid CSRF token.');
     }
 }
-
+}
 // ── Auth helpers ───────────────────────────────────────────
+if (!function_exists('logged_in')) {
 function logged_in()  { return isset($_SESSION['user_id']); }
+}
+if (!function_exists('require_login')) {
 function require_login($redirect='login.php') {
     if (!logged_in()) { header("Location:$redirect"); exit; }
 }
+}
+if (!function_exists('require_role')) {
 function require_role(array $roles) {
     require_login();
     if (!in_array($_SESSION['role'], $roles, true)) {
         header('Location: dashboard.php'); exit;
     }
 }
-
-// ── Sanitize input ─────────────────────────────────────────
-
-// Use this to sanitize input before saving to DB or displaying in HTML attributes
-function clean(string $v): string {
-    return htmlspecialchars(strip_tags(trim($v)), ENT_QUOTES, 'UTF-8');
 }
-
-// Use this to decode for display in HTML body (not in attributes)
+// ── Sanitize input ─────────────────────────────────────────
+if (!function_exists('clean')) {
+function clean(string $v): string {
+    return htmlspecialchars(trim($v), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+}
+}
+if (!function_exists('decode_clean')) {
 function decode_clean(string $v): string {
-    return htmlspecialchars_decode($v, ENT_QUOTES);
+    return htmlspecialchars_decode($v, ENT_QUOTES | ENT_SUBSTITUTE);
+}
 }
 
 // ── Flash messages ─────────────────────────────────────────
-function flash(string $key, string $msg='', string $type='success') {
-    if ($msg) { $_SESSION['flash'][$key] = ['msg'=>$msg,'type'=>$type]; }
-    else {
-        $f = $_SESSION['flash'][$key] ?? null;
-        unset($_SESSION['flash'][$key]);
-        return $f;
-    }
+if (!function_exists('flash')) {
+function flash(string $msg, string $type='info') {
+    $_SESSION['flash'][] = ['msg'=>$msg, 'type'=>$type];
+}
+}
+if (!function_exists('get_flash')) {
+function get_flash(): array {
+    $f = $_SESSION['flash'] ?? [];
+    $_SESSION['flash'] = [];
+    return $f;
+}
 }
 
 // ── Settings loader ────────────────────────────────────────

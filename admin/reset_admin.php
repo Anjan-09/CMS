@@ -18,4 +18,4 @@ $pdo->prepare("UPDATE users SET password = ? WHERE email = 'admin@123.com'")
 echo '<h2 style="font-family:sans-serif;color:green">✓ Admin password reset successfully!</h2>';
 echo '<p style="font-family:sans-serif">Email: <strong>admin@123.com</strong></p>';
 echo '<p style="font-family:sans-serif">Password: <strong>OneTwo3!</strong></p>';
-echo '<p style="font-family:sans-serif;color:red"><strong>DELETE this file now, then <a href="login.php">go to login</a>.</strong></p>';
+echo '<p style="font-family:sans-serif;color:red"><strong>DELETE this file now, then <a href="./login.php">go to login</a>.</strong></p>';

@@ -118,3 +118,16 @@ INSERT INTO `settings` (`key_name`,`key_value`) VALUES
 ('theme_accent','#e94560'),
 ('theme_card','#16213e'),
 ('site_name','Complaint Management System');
+
+
+CREATE TABLE `team_chat` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `bank_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  `full_name` VARCHAR(100) NOT NULL,
+  `message` TEXT NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`bank_id`) REFERENCES `banks`(`id`) ON DELETE CASCADE,
+  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
+);
+
